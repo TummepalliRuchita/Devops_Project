@@ -17,17 +17,10 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Run Application (Optional)') {
             steps {
-                echo "Building Docker image..."
-                sh 'docker build -t Devops_Project:1.0 .'
-            }
-        }
-
-        stage('Run Docker Container') {
-            steps {
-                echo "Running Docker container..."
-                sh 'docker run -d -p 8080:8080 --name Devops_Project Devops_Project:1.0'
+                echo "Running the application... (this is optional)"
+                sh 'java -jar target/*.jar &'
             }
         }
     }
