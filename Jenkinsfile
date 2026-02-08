@@ -1,27 +1,25 @@
 pipeline {
-    agent any
-
-    stages {
-
-        stage('Clone Repository') {
-            steps {
-                echo "Cloning code from GitHub..."
-                git branch: 'main', url: 'https://github.com/TummepalliRuchita/Devops_Project.git'
-            }
-        }
-
-        stage('Build with Maven') {
-            steps {
-                echo "Building Spring Boot application..."
-                sh 'mvn clean package -DskipTests'
-            }
-        }
-
-        stage('Run Application (Optional)') {
-            steps {
-                echo "Running the application... (this is optional)"
-                sh 'java -jar target/*.jar &'
-            }
-        }
-    }
+   agent any
+   stages {
+       stage('Checkout Code') {
+           steps {
+               git 'https://github.com/TummepalliRuchita/Devops_Project.git'
+           }
+       }
+       stage('Build') {
+           steps {
+               sh 'mvn clean package'
+           }
+       }
+       stage('Docker Build') {
+           steps {
+               sh 'docker build -t springboot-app .'
+           }
+       }
+       stage('Run Container') {
+           steps {
+               sh 'docker run -d -p 8080:8080 springboot-app'
+           }
+       }
+   }
 }
