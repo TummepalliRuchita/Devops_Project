@@ -15,14 +15,14 @@ pipeline {
         }
 
         
-        stage('Run Container') {
-            steps {
-                sh '''
-                    docker rm -f springboot-app || true
-                    docker run -d --name springboot-app -p 8081:8080 springboot-app
-                '''
-            }
-        }
+        stage('Run Container and deploy') {
+    steps {
+        sh '''
+            docker rm -f springboot-app || true
+            docker run -d --name springboot-app -p 8081:8080 springboot-app
+        '''
+    }
+}
 
 
       
