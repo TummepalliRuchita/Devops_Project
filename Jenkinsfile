@@ -7,6 +7,11 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('Test') {
+            steps {
+                sh 'mvn -q test'
+            }
+        }
 
         stage('Docker Build') {
             steps {
@@ -27,5 +32,13 @@ pipeline {
 
       
 
+    }
+}
+post {
+    success {
+        echo 'Deployment successful! Access at http://<EC2_IP>:8081'
+    }
+    failure {
+        echo 'Pipeline failed!'
     }
 }
