@@ -25,14 +25,7 @@ pipeline {
         }
 
 
-        stage('Push Docker image') {
-            steps {
-                sh '''
-                    docker tag springboot-app:latest ruchitatummepalli/springboot-app:latest
-                    docker push ruchitatummepalli/springboot-app:latest
-                '''
-            }
-        }
+      
 
     }
 }
